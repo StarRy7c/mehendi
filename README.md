@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Raju Mehendi Artist - Official Website
 
 A premium, dark-themed portfolio website for Raju Mehendi Artist, designed to showcase detailed henna artistry with sophisticated animations and a luxury aesthetic.
@@ -120,3 +121,6 @@ Follow these steps to host this website on Hostinger or any standard web hosting
 - **src/constants.ts**: Central place for text, links, and image paths.
 - **src/firebaseConfig.ts**: Configuration for Editor Mode.
 - **src/assets**: Place for your static image files.
+=======
+# mehendi
+>>>>>>> 92969925b53f87ce040cdec0aee6a5e7de5ba06c
