@@ -65,6 +65,46 @@ import hand43 from './assets/optimized/hand/43.webp';
 import hand44 from './assets/optimized/hand/44.webp';
 import hand45 from './assets/optimized/hand/45.webp';
 import hand46 from './assets/optimized/hand/46.webp';
+import hand47 from './assets/optimized/hand/47.webp';
+import hand48 from './assets/optimized/hand/48.webp';
+import hand49 from './assets/optimized/hand/49.webp';
+import hand50 from './assets/optimized/hand/50.webp';
+import hand51 from './assets/optimized/hand/51.webp';
+import hand52 from './assets/optimized/hand/52.webp';
+import hand53 from './assets/optimized/hand/53.webp';
+import hand54 from './assets/optimized/hand/54.webp';
+import hand55 from './assets/optimized/hand/55.webp';
+import hand56 from './assets/optimized/hand/56.webp';
+import hand57 from './assets/optimized/hand/57.webp';
+import hand58 from './assets/optimized/hand/58.webp';
+import hand59 from './assets/optimized/hand/59.webp';
+import hand60 from './assets/optimized/hand/60.webp';
+import hand61 from './assets/optimized/hand/61.webp';
+import hand62 from './assets/optimized/hand/62.webp';
+import hand63 from './assets/optimized/hand/63.webp';
+import hand64 from './assets/optimized/hand/64.webp';
+import hand65 from './assets/optimized/hand/65.webp';
+import hand66 from './assets/optimized/hand/66.webp';
+import photo1 from './assets/optimized/hand/photo_1_2025-12-10_19-52-20.webp';
+import photo2 from './assets/optimized/hand/photo_2_2025-12-10_19-52-20.webp';
+import photo3 from './assets/optimized/hand/photo_3_2025-12-10_19-52-20.webp';
+import photo4 from './assets/optimized/hand/photo_4_2025-12-10_19-52-20.webp';
+import photo5 from './assets/optimized/hand/photo_5_2025-12-10_19-52-20.webp';
+import photo6 from './assets/optimized/hand/photo_6_2025-12-10_19-52-20.webp';
+import photo7 from './assets/optimized/hand/photo_7_2025-12-10_19-52-20.webp';
+import photo8 from './assets/optimized/hand/photo_8_2025-12-10_19-52-20.webp';
+import photo9 from './assets/optimized/hand/photo_9_2025-12-10_19-52-20.webp';
+import photo10 from './assets/optimized/hand/photo_10_2025-12-10_19-52-20.webp';
+import photo11 from './assets/optimized/hand/photo_11_2025-12-10_19-52-20.webp';
+import photo12 from './assets/optimized/hand/photo_12_2025-12-10_19-52-20.webp';
+import photo13 from './assets/optimized/hand/photo_13_2025-12-10_19-52-20.webp';
+import photo14 from './assets/optimized/hand/photo_14_2025-12-10_19-52-20.webp';
+import photo15 from './assets/optimized/hand/photo_15_2025-12-10_19-52-20.webp';
+import photo16 from './assets/optimized/hand/photo_16_2025-12-10_19-52-20.webp';
+import photo17 from './assets/optimized/hand/photo_17_2025-12-10_19-52-20.webp';
+import photo18 from './assets/optimized/hand/photo_18_2025-12-10_19-52-20.webp';
+import photo19 from './assets/optimized/hand/photo_19_2025-12-10_19-52-20.webp';
+import photo20 from './assets/optimized/hand/photo_20_2025-12-10_19-52-20.webp';
 import feet1 from './assets/optimized/feet/1.webp';
 import feet2 from './assets/optimized/feet/2.webp';
 import feet3 from './assets/optimized/feet/3.webp';
@@ -73,6 +113,7 @@ import feet5 from './assets/optimized/feet/5.webp';
 import feet6 from './assets/optimized/feet/6.webp';
 import fig1 from './assets/images/figures/1.jpg'; // This image was not optimized
 import artist from './assets/optimized/artist.webp';
+import siteLogo from './assets/optimized/logo/Gemini_Generated_Image_1xv5rd1xv5rd1xv5.webp';
 
 
 // --- 2. ADD YOUR IMAGES TO THE ASSETS OBJECT ---
@@ -83,22 +124,22 @@ export const ASSETS = {
 
     // Branding Images (Optional)
     branding: {
-        logo: "https://images.unsplash.com/photo-1621155940027-e4c16a505b82?q=80&w=200&auto=format&fit=crop", // Placeholder logo
+        logo: siteLogo,
         artist: artist,
     },
 
     // Gallery Categories
     gallery: {
         Bridal: [bridal1],
-        Hand: [hand1, hand2, hand3, hand4, hand5, hand6, hand7, hand8, hand9, hand10, hand11, hand12, hand13, hand14, hand15, hand16, hand17, hand18, hand19, hand20, hand21, hand22, hand23, hand24, hand25, hand26, hand27, hand28, hand29, hand30, hand31, hand32, hand33, hand34, hand35, hand36, hand37, hand38, hand39, hand40, hand41, hand42, hand43, hand44, hand45, hand46],
+        Hand: [hand1, hand2, hand3, hand4, hand5, hand6, hand7, hand8, hand9, hand10, hand11, hand12, hand13, hand14, hand15, hand16, hand17, hand18, hand19, hand20, hand21, hand22, hand23, hand24, hand25, hand26, hand27, hand28, hand29, hand30, hand31, hand32, hand33, hand34, hand35, hand36, hand37, hand38, hand39, hand40, hand41, hand42, hand43, hand44, hand45, hand46, hand47, hand48, hand49, hand50, hand51, hand52, hand53, hand54, hand55, hand56, hand57, hand58, hand59, hand60, hand61, hand62, hand63, hand64, hand65, hand66, photo1, photo2, photo3, photo4, photo5, photo6, photo7, photo8, photo9, photo10, photo11, photo12, photo13, photo14, photo15, photo16, photo17, photo18, photo19, photo20],
         Feet: [feet1, feet2, feet3, feet4, feet5, feet6],
     },
 
     // Specific images for Service Cards on Homepage
     services: {
         bridal: bridal1, // Using bridal gallery image for service preview
-        arabic: hand2,   // Using hand gallery image for service preview
-        guest: hand3     // Using hand gallery image for service preview
+        arabic: photo1,   // Using hand gallery image for service preview
+        guest: hand38     // Using hand gallery image for service preview
     }
 };
 

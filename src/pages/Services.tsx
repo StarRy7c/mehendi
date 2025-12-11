@@ -27,6 +27,25 @@ export const Services = () => {
     return (
         <div className="pt-20">
             <Section>
+                <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 mb-12 text-center">
+                  <div className="grid md:grid-cols-2 gap-6 items-center">
+                    <div>
+                      <h4 className="font-bold text-lg text-white mb-2">Now Serving in Korwa</h4>
+                      <p className="text-slate-400 text-sm mb-4">
+                        Shopping Center, H.A.L. Korwa<br/>
+                        Hindustan Aeronautics Limited, Amethi, Uttar Pradesh 227412
+                      </p>
+                      <Button to="/contact" variant="outline">Learn More</Button>
+                    </div>
+                    <div className="border-t border-slate-700 md:border-t-0 md:border-l md:pl-6 pt-6 md:pt-0">
+                      <h4 className="font-bold text-lg text-amber-400 mb-2">Breaking!</h4>
+                      <p className="text-slate-300 text-sm mb-4">
+                        Also available for bookings in <span className="font-semibold text-white">Sultanpur</span> for special events.
+                      </p>
+                      <Button to="/sultanpur-special" variant="primary">Sultanpur Bookings</Button>
+                    </div>
+                  </div>
+                </div>
                 <Heading title="Artistic Services" subtitle="Our Expertise" />
                 <p className="text-center text-slate-400 max-w-2xl mx-auto mb-16 -mt-10">
                     We don't just apply Henna; we create masterpieces. Explore our diverse range of artistic styles tailored for every personality and occasion.

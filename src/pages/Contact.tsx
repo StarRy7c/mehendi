@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Section, Heading, Button, Reveal } from '../components/Components';
 import { CONTACT } from '../constants';
@@ -7,6 +7,22 @@ export const Contact = () => {
     const address = "6R69+CQ6 Shopping Center, H.A.L. Korwa, Hindustan Aeronautics Limited Korwa, Uttar Pradesh 227412";
     const mapQuery = encodeURIComponent(address);
     const mapUrl = `https://maps.google.com/maps?width=100%25&height=600&hl=en&q=${mapQuery}&t=&z=15&ie=UTF8&iwloc=B&output=embed`;
+
+    const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [eventDate, setEventDate] = useState('');
+    const [message, setMessage] = useState('');
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        const formattedMessage = `Hello, I'd like to make a booking.\n\nName: ${name}\nPhone: ${phone}\nEvent Date: ${eventDate}\nMessage: ${message}`;
+        const encodedMessage = encodeURIComponent(formattedMessage);
+        
+        const whatsappUrl = `https://wa.me/${CONTACT.whatsapp.replace(/\s/g, '')}?text=${encodedMessage}`;
+
+        window.open(whatsappUrl, '_blank');
+    };
 
     return (
         <div className="pt-20 min-h-screen bg-slate-950">
@@ -61,23 +77,23 @@ export const Contact = () => {
 
                     {/* Simple Form */}
                     <Reveal delay={0.2}>
-                        <form className="bg-slate-900 p-8 rounded-3xl border border-white/5 shadow-2xl" onSubmit={(e) => { e.preventDefault(); alert("Please message on WhatsApp for faster response!"); }}>
+                        <form className="bg-slate-900 p-8 rounded-3xl border border-white/5 shadow-2xl" onSubmit={handleSubmit}>
                             <div className="space-y-4">
                                 <div>
                                     <label className="block text-sm font-medium text-slate-400 mb-1">Name</label>
-                                    <input type="text" className="w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all" placeholder="Your Name" />
+                                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all" placeholder="Your Name" />
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-slate-400 mb-1">Phone</label>
-                                    <input type="tel" className="w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all" placeholder="Mobile Number" />
+                                    <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all" placeholder="Mobile Number" />
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-slate-400 mb-1">Event Date</label>
-                                    <input type="date" className="w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all" />
+                                    <input type="date" value={eventDate} onChange={(e) => setEventDate(e.target.value)} className="w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all" />
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-slate-400 mb-1">Message</label>
-                                    <textarea rows={4} className="w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all" placeholder="Tell us about your event..."></textarea>
+                                    <textarea rows={4} value={message} onChange={(e) => setMessage(e.target.value)} className="w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all" placeholder="Tell us about your event..."></textarea>
                                 </div>
                                 <Button className="w-full">Send Message</Button>
                             </div>

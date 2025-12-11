@@ -13,7 +13,7 @@ export default defineConfig(({ mode }) => {
       host: true, // equivalent to '0.0.0.0'
 
       // allow ngrok subdomains during dev; keep strict if you want
-      allowedHosts: ['*.ngrok-free.app'],
+      allowedHosts: ['*.ngrok-free.app', 'af90df88a419.ngrok-free.app'],
       // allowedHosts: true, // <-- alternative: allow all hosts
     },
 

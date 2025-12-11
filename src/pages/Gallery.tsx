@@ -1,6 +1,7 @@
-
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import GalleryItemCard from '../components/GalleryItemCard';
 import { Section, Heading, Button } from '../components/Components';
 import { ASSETS } from '../constants';
 
@@ -21,7 +22,6 @@ type GalleryItem = {
 };
 
 // --- DYNAMICALLY GENERATE STATIC ITEMS FROM ASSETS ---
-// This loops through the 'ASSETS.gallery' object in constants.ts
 const STATIC_ITEMS: GalleryItem[] = [];
 let idCounter = 1;
 
@@ -52,6 +52,12 @@ export const Gallery = () => {
     const [isUploading, setIsUploading] = useState(false);
     const [uploadModalOpen, setUploadModalOpen] = useState(false);
 
+    // Infinite Scroll Sentinel
+    const { ref: sentinelRef, inView: sentinelInView } = useInView({
+        threshold: 0,
+        rootMargin: "0px 0px 500px 0px" // Trigger when 500px from bottom
+    });
+    
     // Auth Listener
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((currentUser) => {
@@ -83,7 +89,7 @@ export const Gallery = () => {
             // Ignore init errors
         }
     }, []);
-
+    
     const handleLogin = async () => {
         try {
             await auth.signInWithPopup(googleProvider);
@@ -143,6 +149,7 @@ export const Gallery = () => {
         }
     };
 
+
     // Merge Items
     const combinedItems = useMemo(() => {
         return [...dynamicItems, ...STATIC_ITEMS];
@@ -158,13 +165,21 @@ export const Gallery = () => {
     const visibleItems = filteredItems.slice(0, visibleCount);
     const hasMore = visibleCount < filteredItems.length;
 
-    React.useEffect(() => {
+    // Effect for infinite scroll
+    useEffect(() => {
+        if (sentinelInView && hasMore) {
+            setVisibleCount(p => p + ITEMS_PER_LOAD);
+        }
+    }, [sentinelInView, hasMore]);
+
+    // Reset visible count when category changes
+    useEffect(() => {
         setVisibleCount(ITEMS_PER_LOAD);
     }, [activeCat]);
 
+
     return (
         <div className="pt-20 min-h-screen bg-slate-950 relative">
-            {/* ADMIN BAR */}
             {isAdmin && (
                 <div className="fixed top-20 left-0 right-0 z-40 bg-amber-900/90 border-b border-amber-500/30 backdrop-blur-md px-6 py-3 flex items-center justify-between shadow-2xl">
                     <span className="text-amber-100 font-bold text-xs uppercase tracking-widest">Editor Mode</span>
@@ -177,7 +192,6 @@ export const Gallery = () => {
             <Section>
                 <Heading title="Our Masterpieces" subtitle="The Gallery" />
                 
-                {/* CATEGORY TABS */}
                 <div className="flex flex-wrap justify-center gap-3 mb-16">
                     {CATEGORIES.map(cat => (
                         <button
@@ -201,55 +215,27 @@ export const Gallery = () => {
                     ))}
                 </div>
 
-                {/* MASONRY GRID */}
-                <motion.div layout className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4 px-2">
+                {/* GRID LAYOUT */}
+                <motion.div layout className="grid grid-cols-2 gap-4 md:gap-8 px-2">
                     <AnimatePresence mode="popLayout">
-                        {visibleItems.map((item) => (
-                            <motion.div
-                                layout
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.9 }}
-                                transition={{ duration: 0.4, ease: "easeOut" }}
+                        {visibleItems.map((item, index) => (
+                            <GalleryItemCard
                                 key={item.id}
-                                className="break-inside-avoid relative group rounded-lg overflow-hidden cursor-zoom-in bg-slate-900 shadow-md hover:shadow-xl hover:shadow-amber-900/10 border border-white/5 hover:border-amber-500/30 transition-all duration-300"
-                                onClick={() => setSelectedImage(item)}
-                            >
-                                <img 
-                                    src={item.src} 
-                                    alt={item.title || 'Mehendi Design'} 
-                                    className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700 ease-in-out" 
-                                    loading="lazy"
-                                />
-
-                                {isAdmin && (
-                                    <button 
-                                        onClick={(e) => handleDelete(item, e)}
-                                        className={`absolute top-2 right-2 p-1.5 rounded-full z-20 ${item.isDynamic ? 'bg-red-500 text-white' : 'hidden'}`}
-                                    >
-                                        <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
-                                    </button>
-                                )}
-
-                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
-                                    <p className="text-amber-400 text-[10px] font-bold tracking-widest uppercase mb-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">{item.category}</p>
-                                    <h3 className="text-white text-sm font-display font-medium translate-y-2 group-hover:translate-y-0 transition-transform duration-300 delay-75">{item.title || 'Mehendi Design'}</h3>
-                                </div>
-                            </motion.div>
+                                item={item}
+                                onSelect={setSelectedImage}
+                                onDelete={handleDelete}
+                                isAdmin={isAdmin}
+                            />
                         ))}
                     </AnimatePresence>
                 </motion.div>
 
-                {hasMore && (
-                    <div className="flex justify-center mt-16">
-                        <Button onClick={() => setVisibleCount(p => p + ITEMS_PER_LOAD)} variant="outline">
-                            Load More
-                        </Button>
-                    </div>
-                )}
-            </Section>
+                {/* Sentinel for infinite scroll */}
+                <div ref={sentinelRef} style={{ height: '1px' }} />
 
-            {/* LIGHTBOX */}
+            </Section>
+            
+            {/* LIGHTBOX AND OTHER MODALS... */}
             <AnimatePresence>
                 {selectedImage && (
                     <motion.div 
@@ -263,7 +249,7 @@ export const Gallery = () => {
                             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M18 6L6 18M6 6l12 12" /></svg>
                         </button>
 
-                        <div className="flex flex-col md:flex-row h-full w-full max-w-6xl overflow-hidden rounded-2xl bg-black border border-white/10" onClick={e => e.stopPropagation()}>
+                        <div className="flex flex-col md:flex-row h-full w-full max-w-6xl overflow-hidden rounded-2xl bg-black border-white/10" onClick={e => e.stopPropagation()}>
                            <div className="flex-1 bg-black flex items-center justify-center relative overflow-hidden">
                                <img 
                                    src={selectedImage.src} 
@@ -290,10 +276,8 @@ export const Gallery = () => {
                 )}
             </AnimatePresence>
             
-            {/* HIDDEN ADMIN TRIGGER */}
             <div className="fixed bottom-0 left-0 w-10 h-10 z-50" onDoubleClick={handleLogin} />
-
-            {/* UPLOAD MODAL */}
+            
             <AnimatePresence>
                 {uploadModalOpen && (
                     <div className="fixed inset-0 z-[70] bg-black/80 flex items-center justify-center p-4">

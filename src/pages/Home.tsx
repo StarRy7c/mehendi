@@ -4,6 +4,8 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button, Section, Reveal, Heading } from '../components/Components';
 import { ASSETS, CONTACT } from '../constants';
 
+import TestimonialSlider from '../components/TestimonialSlider';
+
 const Hero = () => {
     const { scrollY } = useScroll();
     const y1 = useTransform(scrollY, [0, 500], [0, 200]);
@@ -20,7 +22,7 @@ const Hero = () => {
             </motion.div>
 
             {/* Content */}
-            <motion.div style={{ opacity }} className="relative z-20 text-center px-6 max-w-4xl mx-auto mt-20">
+            <motion.div style={{ opacity }} className="relative z-20 text-center px-6 max-w-4xl mx-auto mt-40">
                 <motion.span 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -65,8 +67,8 @@ const ServicesPreview = () => {
         { title: "Arabic Designs", desc: "Flowing floral patterns with bold outlines.", img: ASSETS.services.arabic },
         { title: "Event Guests", desc: "Quick yet beautiful designs for family and friends.", img: ASSETS.services.guest },
         { title: "Feet Artistry", desc: "Elegant and traditional patterns to adorn your feet.", img: ASSETS.gallery.Feet[0] },
-        { title: "Figurine Mehendi", desc: "Featuring artistic figures and characters in your design.", img: ASSETS.gallery.Bridal[0] },
-        { title: "Heavy Designs", desc: "Full-coverage, dense patterns for a rich look.", img: ASSETS.gallery.Hand[10] },
+        { title: "Figurine Mehendi", desc: "Featuring artistic figures and characters in your design.", img: ASSETS.gallery.Hand[15] },
+        { title: "Heavy Designs", desc: "Full-coverage, dense patterns for a rich look.", img: ASSETS.gallery.Hand[45] },
     ];
 
     return (
@@ -100,7 +102,7 @@ const AboutSnippet = () => (
             <Reveal>
                 <div className="relative">
                     <div className="absolute -inset-4 border border-amber-500/30 rounded-full opacity-60 animate-[spin_10s_linear_infinite]" />
-                    <img src={ASSETS.branding.artist} alt="Raju Artist" className="rounded-full w-full max-w-sm mx-auto shadow-2xl shadow-black/50 grayscale hover:grayscale-0 transition-all duration-700" />
+                    <img src={ASSETS.branding.artist} alt="Raju Artist" className="rounded-full w-full max-w-[17rem] mx-auto shadow-2xl shadow-black/50 grayscale hover:grayscale-0 transition-all duration-700" />
                 </div>
             </Reveal>
             <Reveal delay={0.2}>
@@ -156,6 +158,7 @@ export const Home = () => (
     <>
         <Hero />
         <ServicesPreview />
+        <TestimonialSlider />
         <AboutSnippet />
         <LocationSnippet />
         <Section>
